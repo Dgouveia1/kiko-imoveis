@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KikoBim Imóveis - CRM</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Ícones Lucide -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Arquivo CSS Separado -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="bg-slate-50 text-slate-800 h-screen flex flex-col overflow-hidden">
+
+    <!-- APP CONTAINER -->
+    <div id="app" class="flex-1 flex flex-col min-w-0 overflow-hidden relative">
+        <!-- O conteúdo será injetado aqui pelo JavaScript -->
+    </div>
+
+    <!-- TOAST CONTAINER (Notificações) -->
+    <div id="toast-container" class="fixed bottom-24 right-6 z-50 flex flex-col gap-2 pointer-events-none"></div>
+
+    <!-- MODAL CONTAINER -->
+    <div id="modal-container" class="hidden fixed inset-0 z-50 flex items-center justify-center bg-slate-900/60 backdrop-blur-sm p-4">
+        <!-- Conteúdo do modal será injetado aqui -->
+    </div>
+    
+    <!-- MODAL ADD LEAD -->
+    <div id="add-lead-modal" class="hidden fixed inset-0 z-50 flex items-center justify-center bg-slate-900/60 backdrop-blur-sm p-4">
+        <!-- Conteúdo do modal de adicionar lead será injetado aqui -->
+    </div>
+
+    <!-- Arquivo JS Separado -->
+    <script src="script.js"></script>
+</body>
+</html>

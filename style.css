@@ -1,0 +1,78 @@
+/* style.css */
+
+body { font-family: 'Inter', sans-serif; }
+
+/* Cores Personalizadas - Tema Azul Marinho & Dourado Metálico */
+.text-gold { color: #D4AF37; }
+.bg-gold { background-color: #D4AF37; }
+.border-gold { border-color: #D4AF37; }
+.hover-bg-gold:hover { background-color: #C5A059; }
+.ring-gold { --tw-ring-color: #D4AF37; }
+
+.bg-gold-light { background-color: #F7F2D6; }
+.text-gold-dark { color: #8F7320; }
+.border-gold-light { border-color: #EEDD9D; }
+
+/* Scrollbar Personalizada */
+.custom-scrollbar::-webkit-scrollbar { width: 6px; height: 6px; }
+.custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
+.custom-scrollbar::-webkit-scrollbar-thumb { background-color: #cbd5e1; border-radius: 20px; }
+
+/* Utilitário para esconder scrollbar */
+.no-scrollbar::-webkit-scrollbar { display: none; }
+.no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+/* Estilos Drag and Drop */
+.dragging { opacity: 0.5; transform: scale(0.95) rotate(2deg); }
+.drag-over { background-color: #F7F2D6; border-color: #EEDD9D; transform: scale(1.01); }
+
+/* Animações */
+@keyframes fadeIn { 
+    from { opacity: 0; transform: scale(0.95); } 
+    to { opacity: 1; transform: scale(1); } 
+}
+@keyframes slideIn { 
+    from { opacity: 0; transform: translateX(20px); } 
+    to { opacity: 1; transform: translateX(0); } 
+}
+
+/* Estilos para filtros ativos */
+.filter-active { 
+    background-color: #F7F2D6; 
+    border-color: #EEDD9D; 
+    color: #8F7320; 
+}
+
+/* Estilos para formulários */
+.form-input {
+    @apply w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-gold focus:border-transparent outline-none transition-all;
+}
+
+/* Estilos para botões */
+.btn-primary {
+    @apply bg-gold text-white px-4 py-2 rounded-lg font-medium hover-bg-gold transition-colors shadow-sm;
+}
+
+.btn-secondary {
+    @apply bg-slate-800 text-gold px-4 py-2 rounded-lg font-medium hover:bg-slate-900 transition-colors shadow-sm;
+}
+
+/* Estilos para cards */
+.card {
+    @apply bg-white rounded-lg shadow-sm border border-slate-200 p-4;
+}
+
+/* Estilos para badges */
+.badge {
+    @apply inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium;
+}
+
+/* Estilos para estados */
+.status-active { @apply bg-green-100 text-green-800; }
+.status-pending { @apply bg-yellow-100 text-yellow-800; }
+.status-inactive { @apply bg-red-100 text-red-800; }
+
+/* Estilos para gráficos */
+.chart-container {
+    @apply bg-white rounded-xl border border-slate-200 shadow-sm p-6;
+}
