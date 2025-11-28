@@ -1,0 +1,24 @@
+/* css/kanban.css - Estilos específicos do Kanban */
+
+/* Área de Drop e Drag */
+.dragging { opacity: 0.5; transform: scale(0.95) rotate(2deg); }
+.drag-over { background-color: #F7F2D6; border-color: #EEDD9D; transform: scale(1.01); }
+
+.drop-zone {
+    min-width: 20rem; /* w-80 equiv */
+    transition: background-color 0.2s, border-color 0.2s;
+}
+
+/* Card do Lead */
+.lead-card {
+    cursor: grab;
+    transition: all 0.2s;
+}
+.lead-card:active { cursor: grabbing; }
+
+/* Filtros */
+.filter-active { 
+    background-color: #F7F2D6; 
+    border-color: #EEDD9D; 
+    color: #8F7320; 
+}

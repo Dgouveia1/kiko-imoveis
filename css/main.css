@@ -1,0 +1,55 @@
+/* css/main.css - Estilos Globais e Utilitários */
+
+body { font-family: 'Inter', sans-serif; }
+
+/* Cores Personalizadas - Tema Azul Marinho & Dourado Metálico */
+.text-gold { color: #D4AF37; }
+.bg-gold { background-color: #D4AF37; }
+.border-gold { border-color: #D4AF37; }
+.hover-bg-gold:hover { background-color: #C5A059; }
+.ring-gold { --tw-ring-color: #D4AF37; }
+
+.bg-gold-light { background-color: #F7F2D6; }
+.text-gold-dark { color: #8F7320; }
+.border-gold-light { border-color: #EEDD9D; }
+
+/* Scrollbar Personalizada */
+.custom-scrollbar::-webkit-scrollbar { width: 6px; height: 6px; }
+.custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
+.custom-scrollbar::-webkit-scrollbar-thumb { background-color: #cbd5e1; border-radius: 20px; }
+
+/* Utilitário para esconder scrollbar */
+.no-scrollbar::-webkit-scrollbar { display: none; }
+.no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+/* Animações Globais */
+@keyframes fadeIn { 
+    from { opacity: 0; transform: scale(0.95); } 
+    to { opacity: 1; transform: scale(1); } 
+}
+@keyframes slideIn { 
+    from { opacity: 0; transform: translateX(20px); } 
+    to { opacity: 1; transform: translateX(0); } 
+}
+
+/* Inputs Globais */
+.form-input {
+    @apply w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-gold focus:border-transparent outline-none transition-all;
+}
+
+/* Botões Globais */
+.btn-primary {
+    @apply bg-gold text-white px-4 py-2 rounded-lg font-medium hover-bg-gold transition-colors shadow-sm;
+}
+.btn-secondary {
+    @apply bg-slate-800 text-gold px-4 py-2 rounded-lg font-medium hover:bg-slate-900 transition-colors shadow-sm;
+}
+
+/* Status Colors (usados em múltiplos lugares) */
+.status-active { @apply bg-green-100 text-green-800; }
+.status-pending { @apply bg-yellow-100 text-yellow-800; }
+.status-inactive { @apply bg-red-100 text-red-800; }
+
+/* Utilitários de Navegação */
+.nav-active .icon-container { background-color: #F7F2D6; color: #8F7320; }
+.nav-active .label-text { font-weight: 700; color: #0f172a; }

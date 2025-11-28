@@ -1,0 +1,90 @@
+/* css/modal.css - Estilos Visuais do Modal (Fidelidade ao Protótipo) */
+
+.modal-content {
+    animation: fadeIn 0.2s ease-out;
+}
+
+/* --- CHAT ESTILO WHATSAPP --- */
+
+/* Fundo com padrão sutil */
+.chat-bg-pattern {
+    background-color: #efeae2; /* Bege WhatsApp */
+    background-image: url('https://user-images.githubusercontent.com/15075759/28719144-86dc0f70-73b1-11e7-911d-60d70fcded21.png'); /* Padrão Doodle Original */
+    background-repeat: repeat;
+    background-size: 400px;
+    background-blend-mode: overlay;
+}
+
+/* Bolhas de Mensagem */
+.chat-bubble {
+    padding: 8px 12px;
+    border-radius: 8px;
+    position: relative;
+    box-shadow: 0 1px 0.5px rgba(0,0,0,0.13);
+    font-size: 14.2px;
+    line-height: 19px;
+    max-width: 85%;
+    word-wrap: break-word;
+}
+
+.chat-bubble-agent {
+    background-color: #d9fdd3; /* Verde WhatsApp */
+    color: #111b21;
+    border-top-right-radius: 0;
+}
+
+.chat-bubble-lead {
+    background-color: #ffffff;
+    color: #111b21;
+    border-top-left-radius: 0;
+}
+
+/* Metadados da Mensagem (Hora) */
+.msg-meta {
+    float: right;
+    margin-left: 8px;
+    margin-top: 4px;
+    font-size: 11px;
+    color: rgba(17, 27, 33, 0.5);
+    height: 15px; /* Alinha com o texto */
+}
+
+/* Pill de Data (Ex: "Hoje") */
+.date-pill {
+    background-color: #fff;
+    box-shadow: 0 1px 0.5px rgba(0,0,0,0.13);
+    color: #54656f;
+    font-size: 12.5px;
+    padding: 5px 12px;
+    border-radius: 8px;
+    text-shadow: 0 1px 0 rgba(255,255,255,0.4);
+    font-weight: 500;
+}
+
+/* --- SIDEBAR & TIMELINE --- */
+
+/* Timeline Vertical */
+.timeline-circle-current {
+    @apply bg-gold border-gold scale-125 ring-4 ring-gold-light;
+    z-index: 10;
+}
+.timeline-circle-past {
+    background-color: #E0C975;
+    border-color: #E0C975;
+    z-index: 10;
+}
+.timeline-circle-future {
+    background-color: white;
+    border-color: #cbd5e1;
+    z-index: 10;
+}
+
+.timeline-line {
+    position: absolute;
+    left: 7px; /* Centraliza com o círculo de 16px (-left-[9px] + padding) */
+    top: 16px;
+    bottom: -16px;
+    width: 2px;
+    background-color: #e2e8f0;
+    z-index: 0;
+}

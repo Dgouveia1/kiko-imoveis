@@ -1,0 +1,165 @@
+categoria,objeto,detalhes
+1. TABELAS E COLUNAS,TABELA: audit_logs,COLUNA: user_id | TIPO: uuid | NULÁVEL: YES | PADRÃO: N/A | DESCRIÇÃO: N/A
+1. TABELAS E COLUNAS,TABELA: audit_logs,COLUNA: entity_id | TIPO: uuid | NULÁVEL: YES | PADRÃO: N/A | DESCRIÇÃO: N/A
+1. TABELAS E COLUNAS,TABELA: audit_logs,COLUNA: old_values | TIPO: jsonb | NULÁVEL: YES | PADRÃO: N/A | DESCRIÇÃO: N/A
+1. TABELAS E COLUNAS,TABELA: audit_logs,COLUNA: entity_table | TIPO: character varying(50) | NULÁVEL: YES | PADRÃO: N/A | DESCRIÇÃO: N/A
+1. TABELAS E COLUNAS,TABELA: audit_logs,COLUNA: ip_address | TIPO: character varying(45) | NULÁVEL: YES | PADRÃO: N/A | DESCRIÇÃO: N/A
+1. TABELAS E COLUNAS,TABELA: audit_logs,COLUNA: created_at | TIPO: timestamp with time zone | NULÁVEL: YES | PADRÃO: CURRENT_TIMESTAMP | DESCRIÇÃO: N/A
+1. TABELAS E COLUNAS,TABELA: audit_logs,COLUNA: new_values | TIPO: jsonb | NULÁVEL: YES | PADRÃO: N/A | DESCRIÇÃO: N/A
+1. TABELAS E COLUNAS,TABELA: audit_logs,COLUNA: action | TIPO: character varying(100) | NULÁVEL: NO | PADRÃO: N/A | DESCRIÇÃO: N/A
+1. TABELAS E COLUNAS,TABELA: audit_logs,COLUNA: id | TIPO: bigint | NULÁVEL: NO | PADRÃO: nextval('audit_logs_id_seq'::regclass) | DESCRIÇÃO: N/A
+1. TABELAS E COLUNAS,TABELA: client_documents,COLUNA: file_size_bytes | TIPO: bigint | NULÁVEL: YES | PADRÃO: N/A | DESCRIÇÃO: N/A
+1. TABELAS E COLUNAS,TABELA: client_documents,COLUNA: is_verified | TIPO: boolean | NULÁVEL: YES | PADRÃO: false | DESCRIÇÃO: N/A
+1. TABELAS E COLUNAS,TABELA: client_documents,COLUNA: created_at | TIPO: timestamp with time zone | NULÁVEL: YES | PADRÃO: CURRENT_TIMESTAMP | DESCRIÇÃO: N/A
+1. TABELAS E COLUNAS,TABELA: client_documents,COLUNA: file_type | TIPO: character varying(50) | NULÁVEL: YES | PADRÃO: N/A | DESCRIÇÃO: N/A
+1. TABELAS E COLUNAS,TABELA: client_documents,COLUNA: name | TIPO: character varying(255) | NULÁVEL: NO | PADRÃO: N/A | DESCRIÇÃO: N/A
+1. TABELAS E COLUNAS,TABELA: client_documents,COLUNA: file_url | TIPO: text | NULÁVEL: NO | PADRÃO: N/A | DESCRIÇÃO: N/A
+1. TABELAS E COLUNAS,TABELA: client_documents,COLUNA: id | TIPO: uuid | NULÁVEL: NO | PADRÃO: gen_random_uuid() | DESCRIÇÃO: N/A
+1. TABELAS E COLUNAS,TABELA: client_documents,COLUNA: client_id | TIPO: uuid | NULÁVEL: YES | PADRÃO: N/A | DESCRIÇÃO: N/A
+1. TABELAS E COLUNAS,TABELA: client_documents,COLUNA: uploaded_by | TIPO: uuid | NULÁVEL: YES | PADRÃO: N/A | DESCRIÇÃO: N/A
+1. TABELAS E COLUNAS,TABELA: client_notes,COLUNA: client_id | TIPO: uuid | NULÁVEL: YES | PADRÃO: N/A | DESCRIÇÃO: N/A
+1. TABELAS E COLUNAS,TABELA: client_notes,COLUNA: content | TIPO: text | NULÁVEL: NO | PADRÃO: N/A | DESCRIÇÃO: N/A
+1. TABELAS E COLUNAS,TABELA: client_notes,COLUNA: created_at | TIPO: timestamp with time zone | NULÁVEL: YES | PADRÃO: CURRENT_TIMESTAMP | DESCRIÇÃO: N/A
+1. TABELAS E COLUNAS,TABELA: client_notes,COLUNA: id | TIPO: uuid | NULÁVEL: NO | PADRÃO: gen_random_uuid() | DESCRIÇÃO: N/A
+1. TABELAS E COLUNAS,TABELA: client_notes,COLUNA: user_id | TIPO: uuid | NULÁVEL: YES | PADRÃO: N/A | DESCRIÇÃO: N/A
+1. TABELAS E COLUNAS,TABELA: client_stage_history,COLUNA: id | TIPO: uuid | NULÁVEL: NO | PADRÃO: gen_random_uuid() | DESCRIÇÃO: N/A
+1. TABELAS E COLUNAS,TABELA: client_stage_history,COLUNA: client_id | TIPO: uuid | NULÁVEL: YES | PADRÃO: N/A | DESCRIÇÃO: N/A
+1. TABELAS E COLUNAS,TABELA: client_stage_history,COLUNA: from_stage_id | TIPO: integer | NULÁVEL: YES | PADRÃO: N/A | DESCRIÇÃO: N/A
+1. TABELAS E COLUNAS,TABELA: client_stage_history,COLUNA: to_stage_id | TIPO: integer | NULÁVEL: YES | PADRÃO: N/A | DESCRIÇÃO: N/A
+1. TABELAS E COLUNAS,TABELA: client_stage_history,COLUNA: user_id | TIPO: uuid | NULÁVEL: YES | PADRÃO: N/A | DESCRIÇÃO: N/A
+1. TABELAS E COLUNAS,TABELA: client_stage_history,COLUNA: duration_in_previous_stage_seconds | TIPO: integer | NULÁVEL: YES | PADRÃO: N/A | DESCRIÇÃO: N/A
+1. TABELAS E COLUNAS,TABELA: client_stage_history,COLUNA: created_at | TIPO: timestamp with time zone | NULÁVEL: YES | PADRÃO: CURRENT_TIMESTAMP | DESCRIÇÃO: N/A
+1. TABELAS E COLUNAS,TABELA: client_tags,COLUNA: client_id | TIPO: uuid | NULÁVEL: NO | PADRÃO: N/A | DESCRIÇÃO: N/A
+1. TABELAS E COLUNAS,TABELA: client_tags,COLUNA: tag_id | TIPO: integer | NULÁVEL: NO | PADRÃO: N/A | DESCRIÇÃO: N/A
+1. TABELAS E COLUNAS,TABELA: clients,COLUNA: email | TIPO: character varying(255) | NULÁVEL: YES | PADRÃO: N/A | DESCRIÇÃO: N/A
+1. TABELAS E COLUNAS,TABELA: clients,COLUNA: id | TIPO: uuid | NULÁVEL: NO | PADRÃO: gen_random_uuid() | DESCRIÇÃO: N/A
+1. TABELAS E COLUNAS,TABELA: clients,COLUNA: code | TIPO: integer | NULÁVEL: NO | PADRÃO: nextval('clients_code_seq'::regclass) | DESCRIÇÃO: N/A
+1. TABELAS E COLUNAS,TABELA: clients,COLUNA: pipeline_id | TIPO: integer | NULÁVEL: YES | PADRÃO: N/A | DESCRIÇÃO: N/A
+1. TABELAS E COLUNAS,TABELA: clients,COLUNA: stage_id | TIPO: integer | NULÁVEL: YES | PADRÃO: N/A | DESCRIÇÃO: N/A
+1. TABELAS E COLUNAS,TABELA: clients,COLUNA: deal_value | TIPO: numeric | NULÁVEL: YES | PADRÃO: 0 | DESCRIÇÃO: N/A
+1. TABELAS E COLUNAS,TABELA: clients,COLUNA: assigned_user_id | TIPO: uuid | NULÁVEL: YES | PADRÃO: N/A | DESCRIÇÃO: N/A
+1. TABELAS E COLUNAS,TABELA: clients,COLUNA: last_contact_at | TIPO: timestamp with time zone | NULÁVEL: YES | PADRÃO: N/A | DESCRIÇÃO: N/A
+1. TABELAS E COLUNAS,TABELA: clients,COLUNA: unread_messages_count | TIPO: integer | NULÁVEL: YES | PADRÃO: 0 | DESCRIÇÃO: N/A
+1. TABELAS E COLUNAS,TABELA: clients,COLUNA: created_at | TIPO: timestamp with time zone | NULÁVEL: YES | PADRÃO: CURRENT_TIMESTAMP | DESCRIÇÃO: N/A
+1. TABELAS E COLUNAS,TABELA: clients,COLUNA: updated_at | TIPO: timestamp with time zone | NULÁVEL: YES | PADRÃO: CURRENT_TIMESTAMP | DESCRIÇÃO: N/A
+1. TABELAS E COLUNAS,TABELA: clients,COLUNA: tags | TIPO: jsonb | NULÁVEL: YES | PADRÃO: '[]'::jsonb | DESCRIÇÃO: N/A
+1. TABELAS E COLUNAS,TABELA: clients,COLUNA: name | TIPO: character varying(255) | NULÁVEL: NO | PADRÃO: N/A | DESCRIÇÃO: N/A
+1. TABELAS E COLUNAS,TABELA: clients,COLUNA: phone | TIPO: character varying(50) | NULÁVEL: NO | PADRÃO: N/A | DESCRIÇÃO: N/A
+1. TABELAS E COLUNAS,TABELA: clients,COLUNA: type | TIPO: character varying(50) | NULÁVEL: YES | PADRÃO: N/A | DESCRIÇÃO: N/A
+1. TABELAS E COLUNAS,TABELA: clients,COLUNA: origin | TIPO: character varying(100) | NULÁVEL: YES | PADRÃO: N/A | DESCRIÇÃO: N/A
+1. TABELAS E COLUNAS,TABELA: clients,COLUNA: status | TIPO: character varying(20) | NULÁVEL: YES | PADRÃO: 'active'::character varying | DESCRIÇÃO: N/A
+1. TABELAS E COLUNAS,TABELA: clients,COLUNA: priority | TIPO: character varying(20) | NULÁVEL: YES | PADRÃO: 'medium'::character varying | DESCRIÇÃO: N/A
+1. TABELAS E COLUNAS,TABELA: clients,COLUNA: last_interaction_direction | TIPO: character varying(10) | NULÁVEL: YES | PADRÃO: N/A | DESCRIÇÃO: N/A
+1. TABELAS E COLUNAS,TABELA: messages,COLUNA: media_url | TIPO: text | NULÁVEL: YES | PADRÃO: N/A | DESCRIÇÃO: N/A
+1. TABELAS E COLUNAS,TABELA: messages,COLUNA: wpp_message_id | TIPO: character varying(255) | NULÁVEL: YES | PADRÃO: N/A | DESCRIÇÃO: N/A
+1. TABELAS E COLUNAS,TABELA: messages,COLUNA: status | TIPO: character varying(20) | NULÁVEL: YES | PADRÃO: 'sent'::character varying | DESCRIÇÃO: N/A
+1. TABELAS E COLUNAS,TABELA: messages,COLUNA: from_me | TIPO: boolean | NULÁVEL: YES | PADRÃO: N/A | DESCRIÇÃO: coluna para definir quem enviou a mensagem
+1. TABELAS E COLUNAS,TABELA: messages,COLUNA: user_id | TIPO: uuid | NULÁVEL: YES | PADRÃO: N/A | DESCRIÇÃO: N/A
+1. TABELAS E COLUNAS,TABELA: messages,COLUNA: created_at | TIPO: timestamp with time zone | NULÁVEL: YES | PADRÃO: CURRENT_TIMESTAMP | DESCRIÇÃO: N/A
+1. TABELAS E COLUNAS,TABELA: messages,COLUNA: direction | TIPO: character varying(10) | NULÁVEL: NO | PADRÃO: N/A | DESCRIÇÃO: N/A
+1. TABELAS E COLUNAS,TABELA: messages,COLUNA: type | TIPO: character varying(20) | NULÁVEL: YES | PADRÃO: 'text'::character varying | DESCRIÇÃO: N/A
+1. TABELAS E COLUNAS,TABELA: messages,COLUNA: content | TIPO: text | NULÁVEL: YES | PADRÃO: N/A | DESCRIÇÃO: N/A
+1. TABELAS E COLUNAS,TABELA: messages,COLUNA: id | TIPO: uuid | NULÁVEL: NO | PADRÃO: gen_random_uuid() | DESCRIÇÃO: N/A
+1. TABELAS E COLUNAS,TABELA: messages,COLUNA: client_id | TIPO: uuid | NULÁVEL: YES | PADRÃO: N/A | DESCRIÇÃO: N/A
+1. TABELAS E COLUNAS,TABELA: notifications,COLUNA: type | TIPO: character varying(50) | NULÁVEL: YES | PADRÃO: N/A | DESCRIÇÃO: N/A
+1. TABELAS E COLUNAS,TABELA: notifications,COLUNA: id | TIPO: uuid | NULÁVEL: NO | PADRÃO: gen_random_uuid() | DESCRIÇÃO: N/A
+1. TABELAS E COLUNAS,TABELA: notifications,COLUNA: user_id | TIPO: uuid | NULÁVEL: YES | PADRÃO: N/A | DESCRIÇÃO: N/A
+1. TABELAS E COLUNAS,TABELA: notifications,COLUNA: message | TIPO: text | NULÁVEL: YES | PADRÃO: N/A | DESCRIÇÃO: N/A
+1. TABELAS E COLUNAS,TABELA: notifications,COLUNA: title | TIPO: character varying(255) | NULÁVEL: NO | PADRÃO: N/A | DESCRIÇÃO: N/A
+1. TABELAS E COLUNAS,TABELA: notifications,COLUNA: created_at | TIPO: timestamp with time zone | NULÁVEL: YES | PADRÃO: CURRENT_TIMESTAMP | DESCRIÇÃO: N/A
+1. TABELAS E COLUNAS,TABELA: notifications,COLUNA: is_read | TIPO: boolean | NULÁVEL: YES | PADRÃO: false | DESCRIÇÃO: N/A
+1. TABELAS E COLUNAS,TABELA: notifications,COLUNA: client_id | TIPO: uuid | NULÁVEL: YES | PADRÃO: N/A | DESCRIÇÃO: N/A
+1. TABELAS E COLUNAS,TABELA: pipeline_stages,COLUNA: color_hex | TIPO: character varying(7) | NULÁVEL: YES | PADRÃO: N/A | DESCRIÇÃO: N/A
+1. TABELAS E COLUNAS,TABELA: pipeline_stages,COLUNA: pipeline_id | TIPO: integer | NULÁVEL: YES | PADRÃO: N/A | DESCRIÇÃO: N/A
+1. TABELAS E COLUNAS,TABELA: pipeline_stages,COLUNA: id | TIPO: integer | NULÁVEL: NO | PADRÃO: nextval('pipeline_stages_id_seq'::regclass) | DESCRIÇÃO: N/A
+1. TABELAS E COLUNAS,TABELA: pipeline_stages,COLUNA: name | TIPO: character varying(100) | NULÁVEL: NO | PADRÃO: N/A | DESCRIÇÃO: N/A
+1. TABELAS E COLUNAS,TABELA: pipeline_stages,COLUNA: position | TIPO: integer | NULÁVEL: NO | PADRÃO: N/A | DESCRIÇÃO: N/A
+1. TABELAS E COLUNAS,TABELA: pipeline_stages,COLUNA: is_final_success | TIPO: boolean | NULÁVEL: YES | PADRÃO: false | DESCRIÇÃO: N/A
+1. TABELAS E COLUNAS,TABELA: pipeline_stages,COLUNA: is_final_failure | TIPO: boolean | NULÁVEL: YES | PADRÃO: false | DESCRIÇÃO: N/A
+1. TABELAS E COLUNAS,TABELA: pipelines,COLUNA: created_at | TIPO: timestamp with time zone | NULÁVEL: YES | PADRÃO: CURRENT_TIMESTAMP | DESCRIÇÃO: N/A
+1. TABELAS E COLUNAS,TABELA: pipelines,COLUNA: slug | TIPO: character varying(100) | NULÁVEL: NO | PADRÃO: N/A | DESCRIÇÃO: N/A
+1. TABELAS E COLUNAS,TABELA: pipelines,COLUNA: id | TIPO: integer | NULÁVEL: NO | PADRÃO: nextval('pipelines_id_seq'::regclass) | DESCRIÇÃO: N/A
+1. TABELAS E COLUNAS,TABELA: pipelines,COLUNA: description | TIPO: text | NULÁVEL: YES | PADRÃO: N/A | DESCRIÇÃO: N/A
+1. TABELAS E COLUNAS,TABELA: pipelines,COLUNA: name | TIPO: character varying(100) | NULÁVEL: NO | PADRÃO: N/A | DESCRIÇÃO: N/A
+1. TABELAS E COLUNAS,TABELA: tags,COLUNA: id | TIPO: integer | NULÁVEL: NO | PADRÃO: nextval('tags_id_seq'::regclass) | DESCRIÇÃO: N/A
+1. TABELAS E COLUNAS,TABELA: tags,COLUNA: color_class | TIPO: character varying(50) | NULÁVEL: YES | PADRÃO: N/A | DESCRIÇÃO: N/A
+1. TABELAS E COLUNAS,TABELA: tags,COLUNA: name | TIPO: character varying(50) | NULÁVEL: NO | PADRÃO: N/A | DESCRIÇÃO: N/A
+1. TABELAS E COLUNAS,TABELA: users,COLUNA: avatar_url | TIPO: text | NULÁVEL: YES | PADRÃO: N/A | DESCRIÇÃO: N/A
+1. TABELAS E COLUNAS,TABELA: users,COLUNA: auth_id | TIPO: character varying(128) | NULÁVEL: NO | PADRÃO: N/A | DESCRIÇÃO: N/A
+1. TABELAS E COLUNAS,TABELA: users,COLUNA: name | TIPO: character varying(255) | NULÁVEL: NO | PADRÃO: N/A | DESCRIÇÃO: N/A
+1. TABELAS E COLUNAS,TABELA: users,COLUNA: email | TIPO: character varying(255) | NULÁVEL: NO | PADRÃO: N/A | DESCRIÇÃO: N/A
+1. TABELAS E COLUNAS,TABELA: users,COLUNA: role | TIPO: character varying(50) | NULÁVEL: YES | PADRÃO: 'agent'::character varying | DESCRIÇÃO: N/A
+1. TABELAS E COLUNAS,TABELA: users,COLUNA: id | TIPO: uuid | NULÁVEL: NO | PADRÃO: gen_random_uuid() | DESCRIÇÃO: N/A
+1. TABELAS E COLUNAS,TABELA: users,COLUNA: is_active | TIPO: boolean | NULÁVEL: YES | PADRÃO: true | DESCRIÇÃO: N/A
+1. TABELAS E COLUNAS,TABELA: users,COLUNA: created_at | TIPO: timestamp with time zone | NULÁVEL: YES | PADRÃO: CURRENT_TIMESTAMP | DESCRIÇÃO: N/A
+1. TABELAS E COLUNAS,TABELA: view_clients_kpi,COLUNA: total_interactions | TIPO: bigint | NULÁVEL: YES | PADRÃO: N/A | DESCRIÇÃO: N/A
+1. TABELAS E COLUNAS,TABELA: view_clients_kpi,COLUNA: pipeline_name | TIPO: character varying(100) | NULÁVEL: YES | PADRÃO: N/A | DESCRIÇÃO: N/A
+1. TABELAS E COLUNAS,TABELA: view_clients_kpi,COLUNA: days_without_contact | TIPO: numeric | NULÁVEL: YES | PADRÃO: N/A | DESCRIÇÃO: N/A
+1. TABELAS E COLUNAS,TABELA: view_clients_kpi,COLUNA: days_since_creation | TIPO: numeric | NULÁVEL: YES | PADRÃO: N/A | DESCRIÇÃO: N/A
+1. TABELAS E COLUNAS,TABELA: view_clients_kpi,COLUNA: deal_value | TIPO: numeric | NULÁVEL: YES | PADRÃO: N/A | DESCRIÇÃO: N/A
+1. TABELAS E COLUNAS,TABELA: view_clients_kpi,COLUNA: client_id | TIPO: uuid | NULÁVEL: YES | PADRÃO: N/A | DESCRIÇÃO: N/A
+1. TABELAS E COLUNAS,TABELA: view_clients_kpi,COLUNA: current_stage | TIPO: character varying(100) | NULÁVEL: YES | PADRÃO: N/A | DESCRIÇÃO: N/A
+1. TABELAS E COLUNAS,TABELA: view_clients_kpi,COLUNA: client_name | TIPO: character varying(255) | NULÁVEL: YES | PADRÃO: N/A | DESCRIÇÃO: N/A
+1. TABELAS E COLUNAS,TABELA: view_funnel_stats,COLUNA: leads_count | TIPO: bigint | NULÁVEL: YES | PADRÃO: N/A | DESCRIÇÃO: N/A
+1. TABELAS E COLUNAS,TABELA: view_funnel_stats,COLUNA: position | TIPO: integer | NULÁVEL: YES | PADRÃO: N/A | DESCRIÇÃO: N/A
+1. TABELAS E COLUNAS,TABELA: view_funnel_stats,COLUNA: total_value | TIPO: numeric | NULÁVEL: YES | PADRÃO: N/A | DESCRIÇÃO: N/A
+1. TABELAS E COLUNAS,TABELA: view_funnel_stats,COLUNA: pipeline | TIPO: character varying(100) | NULÁVEL: YES | PADRÃO: N/A | DESCRIÇÃO: N/A
+1. TABELAS E COLUNAS,TABELA: view_funnel_stats,COLUNA: stage | TIPO: character varying(100) | NULÁVEL: YES | PADRÃO: N/A | DESCRIÇÃO: N/A
+2. CONSTRAINTS (CHAVES),TABELA: audit_logs,CONSTRAINT: audit_logs_pkey | TIPO: PRIMARY KEY | COLUNA(S): id
+2. CONSTRAINTS (CHAVES),TABELA: audit_logs,CONSTRAINT: audit_logs_user_id_fkey | TIPO: FOREIGN KEY | COLUNA(S): user_id | REFERENCIA: users(id)
+2. CONSTRAINTS (CHAVES),TABELA: client_documents,CONSTRAINT: client_documents_pkey | TIPO: PRIMARY KEY | COLUNA(S): id
+2. CONSTRAINTS (CHAVES),TABELA: client_documents,CONSTRAINT: client_documents_client_id_fkey | TIPO: FOREIGN KEY | COLUNA(S): client_id | REFERENCIA: clients(id)
+2. CONSTRAINTS (CHAVES),TABELA: client_documents,CONSTRAINT: client_documents_uploaded_by_fkey | TIPO: FOREIGN KEY | COLUNA(S): uploaded_by | REFERENCIA: users(id)
+2. CONSTRAINTS (CHAVES),TABELA: client_notes,CONSTRAINT: client_notes_user_id_fkey | TIPO: FOREIGN KEY | COLUNA(S): user_id | REFERENCIA: users(id)
+2. CONSTRAINTS (CHAVES),TABELA: client_notes,CONSTRAINT: client_notes_pkey | TIPO: PRIMARY KEY | COLUNA(S): id
+2. CONSTRAINTS (CHAVES),TABELA: client_notes,CONSTRAINT: client_notes_client_id_fkey | TIPO: FOREIGN KEY | COLUNA(S): client_id | REFERENCIA: clients(id)
+2. CONSTRAINTS (CHAVES),TABELA: client_stage_history,CONSTRAINT: client_stage_history_to_stage_id_fkey | TIPO: FOREIGN KEY | COLUNA(S): to_stage_id | REFERENCIA: pipeline_stages(id)
+2. CONSTRAINTS (CHAVES),TABELA: client_stage_history,CONSTRAINT: client_stage_history_pkey | TIPO: PRIMARY KEY | COLUNA(S): id
+2. CONSTRAINTS (CHAVES),TABELA: client_stage_history,CONSTRAINT: client_stage_history_from_stage_id_fkey | TIPO: FOREIGN KEY | COLUNA(S): from_stage_id | REFERENCIA: pipeline_stages(id)
+2. CONSTRAINTS (CHAVES),TABELA: client_stage_history,CONSTRAINT: client_stage_history_client_id_fkey | TIPO: FOREIGN KEY | COLUNA(S): client_id | REFERENCIA: clients(id)
+2. CONSTRAINTS (CHAVES),TABELA: client_stage_history,CONSTRAINT: client_stage_history_user_id_fkey | TIPO: FOREIGN KEY | COLUNA(S): user_id | REFERENCIA: users(id)
+2. CONSTRAINTS (CHAVES),TABELA: client_tags,CONSTRAINT: client_tags_pkey | TIPO: PRIMARY KEY | COLUNA(S): client_id
+2. CONSTRAINTS (CHAVES),TABELA: client_tags,CONSTRAINT: client_tags_pkey | TIPO: PRIMARY KEY | COLUNA(S): tag_id
+2. CONSTRAINTS (CHAVES),TABELA: client_tags,CONSTRAINT: client_tags_pkey | TIPO: PRIMARY KEY | COLUNA(S): tag_id
+2. CONSTRAINTS (CHAVES),TABELA: client_tags,CONSTRAINT: client_tags_tag_id_fkey | TIPO: FOREIGN KEY | COLUNA(S): tag_id | REFERENCIA: tags(id)
+2. CONSTRAINTS (CHAVES),TABELA: client_tags,CONSTRAINT: client_tags_client_id_fkey | TIPO: FOREIGN KEY | COLUNA(S): client_id | REFERENCIA: clients(id)
+2. CONSTRAINTS (CHAVES),TABELA: client_tags,CONSTRAINT: client_tags_pkey | TIPO: PRIMARY KEY | COLUNA(S): client_id
+2. CONSTRAINTS (CHAVES),TABELA: clients,CONSTRAINT: clients_assigned_user_id_fkey | TIPO: FOREIGN KEY | COLUNA(S): assigned_user_id | REFERENCIA: users(id)
+2. CONSTRAINTS (CHAVES),TABELA: clients,CONSTRAINT: clients_pipeline_id_fkey | TIPO: FOREIGN KEY | COLUNA(S): pipeline_id | REFERENCIA: pipelines(id)
+2. CONSTRAINTS (CHAVES),TABELA: clients,CONSTRAINT: clients_pkey | TIPO: PRIMARY KEY | COLUNA(S): id
+2. CONSTRAINTS (CHAVES),TABELA: clients,CONSTRAINT: clients_stage_id_fkey | TIPO: FOREIGN KEY | COLUNA(S): stage_id | REFERENCIA: pipeline_stages(id)
+2. CONSTRAINTS (CHAVES),TABELA: messages,CONSTRAINT: messages_user_id_fkey | TIPO: FOREIGN KEY | COLUNA(S): user_id | REFERENCIA: users(id)
+2. CONSTRAINTS (CHAVES),TABELA: messages,CONSTRAINT: messages_pkey | TIPO: PRIMARY KEY | COLUNA(S): id
+2. CONSTRAINTS (CHAVES),TABELA: messages,CONSTRAINT: messages_client_id_fkey | TIPO: FOREIGN KEY | COLUNA(S): client_id | REFERENCIA: clients(id)
+2. CONSTRAINTS (CHAVES),TABELA: notifications,CONSTRAINT: notifications_user_id_fkey | TIPO: FOREIGN KEY | COLUNA(S): user_id | REFERENCIA: users(id)
+2. CONSTRAINTS (CHAVES),TABELA: notifications,CONSTRAINT: notifications_client_id_fkey | TIPO: FOREIGN KEY | COLUNA(S): client_id | REFERENCIA: clients(id)
+2. CONSTRAINTS (CHAVES),TABELA: notifications,CONSTRAINT: notifications_pkey | TIPO: PRIMARY KEY | COLUNA(S): id
+2. CONSTRAINTS (CHAVES),TABELA: pipeline_stages,CONSTRAINT: pipeline_stages_pkey | TIPO: PRIMARY KEY | COLUNA(S): id
+2. CONSTRAINTS (CHAVES),TABELA: pipeline_stages,CONSTRAINT: pipeline_stages_pipeline_id_fkey | TIPO: FOREIGN KEY | COLUNA(S): pipeline_id | REFERENCIA: pipelines(id)
+2. CONSTRAINTS (CHAVES),TABELA: pipelines,CONSTRAINT: pipelines_slug_key | TIPO: UNIQUE | COLUNA(S): slug
+2. CONSTRAINTS (CHAVES),TABELA: pipelines,CONSTRAINT: pipelines_pkey | TIPO: PRIMARY KEY | COLUNA(S): id
+2. CONSTRAINTS (CHAVES),TABELA: tags,CONSTRAINT: tags_name_key | TIPO: UNIQUE | COLUNA(S): name
+2. CONSTRAINTS (CHAVES),TABELA: tags,CONSTRAINT: tags_pkey | TIPO: PRIMARY KEY | COLUNA(S): id
+2. CONSTRAINTS (CHAVES),TABELA: users,CONSTRAINT: users_email_key | TIPO: UNIQUE | COLUNA(S): email
+2. CONSTRAINTS (CHAVES),TABELA: users,CONSTRAINT: users_auth_id_key | TIPO: UNIQUE | COLUNA(S): auth_id
+2. CONSTRAINTS (CHAVES),TABELA: users,CONSTRAINT: users_pkey | TIPO: PRIMARY KEY | COLUNA(S): id
+3. ÍNDICES,TABELA: audit_logs,ÍNDICE: audit_logs_pkey | DEFINIÇÃO: CREATE UNIQUE INDEX audit_logs_pkey ON public.audit_logs USING btree (id)
+3. ÍNDICES,TABELA: audit_logs,ÍNDICE: idx_logs_created_at | DEFINIÇÃO: CREATE INDEX idx_logs_created_at ON public.audit_logs USING btree (created_at)
+3. ÍNDICES,TABELA: client_documents,ÍNDICE: client_documents_pkey | DEFINIÇÃO: CREATE UNIQUE INDEX client_documents_pkey ON public.client_documents USING btree (id)
+3. ÍNDICES,TABELA: client_notes,ÍNDICE: client_notes_pkey | DEFINIÇÃO: CREATE UNIQUE INDEX client_notes_pkey ON public.client_notes USING btree (id)
+3. ÍNDICES,TABELA: client_stage_history,ÍNDICE: client_stage_history_pkey | DEFINIÇÃO: CREATE UNIQUE INDEX client_stage_history_pkey ON public.client_stage_history USING btree (id)
+3. ÍNDICES,TABELA: client_tags,"ÍNDICE: client_tags_pkey | DEFINIÇÃO: CREATE UNIQUE INDEX client_tags_pkey ON public.client_tags USING btree (client_id, tag_id)"
+3. ÍNDICES,TABELA: clients,ÍNDICE: idx_clients_phone | DEFINIÇÃO: CREATE INDEX idx_clients_phone ON public.clients USING btree (phone)
+3. ÍNDICES,TABELA: clients,"ÍNDICE: idx_clients_pipeline | DEFINIÇÃO: CREATE INDEX idx_clients_pipeline ON public.clients USING btree (pipeline_id, stage_id)"
+3. ÍNDICES,TABELA: clients,ÍNDICE: clients_pkey | DEFINIÇÃO: CREATE UNIQUE INDEX clients_pkey ON public.clients USING btree (id)
+3. ÍNDICES,TABELA: messages,ÍNDICE: idx_messages_client | DEFINIÇÃO: CREATE INDEX idx_messages_client ON public.messages USING btree (client_id)
+3. ÍNDICES,TABELA: messages,ÍNDICE: messages_pkey | DEFINIÇÃO: CREATE UNIQUE INDEX messages_pkey ON public.messages USING btree (id)
+3. ÍNDICES,TABELA: notifications,ÍNDICE: notifications_pkey | DEFINIÇÃO: CREATE UNIQUE INDEX notifications_pkey ON public.notifications USING btree (id)
+3. ÍNDICES,TABELA: pipeline_stages,ÍNDICE: pipeline_stages_pkey | DEFINIÇÃO: CREATE UNIQUE INDEX pipeline_stages_pkey ON public.pipeline_stages USING btree (id)
+3. ÍNDICES,TABELA: pipelines,ÍNDICE: pipelines_pkey | DEFINIÇÃO: CREATE UNIQUE INDEX pipelines_pkey ON public.pipelines USING btree (id)
+3. ÍNDICES,TABELA: pipelines,ÍNDICE: pipelines_slug_key | DEFINIÇÃO: CREATE UNIQUE INDEX pipelines_slug_key ON public.pipelines USING btree (slug)
+3. ÍNDICES,TABELA: tags,ÍNDICE: tags_name_key | DEFINIÇÃO: CREATE UNIQUE INDEX tags_name_key ON public.tags USING btree (name)
+3. ÍNDICES,TABELA: tags,ÍNDICE: tags_pkey | DEFINIÇÃO: CREATE UNIQUE INDEX tags_pkey ON public.tags USING btree (id)
+3. ÍNDICES,TABELA: users,ÍNDICE: users_auth_id_key | DEFINIÇÃO: CREATE UNIQUE INDEX users_auth_id_key ON public.users USING btree (auth_id)
+3. ÍNDICES,TABELA: users,ÍNDICE: users_email_key | DEFINIÇÃO: CREATE UNIQUE INDEX users_email_key ON public.users USING btree (email)
+3. ÍNDICES,TABELA: users,ÍNDICE: users_pkey | DEFINIÇÃO: CREATE UNIQUE INDEX users_pkey ON public.users USING btree (id)
