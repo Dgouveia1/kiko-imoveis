@@ -1,4 +1,4 @@
-// js/data.js - Camada de Dados Conectada ao Supabase
+// js/data.js - Camada de Dados Conectada ao Supabase com Realtime
 
 const SUPABASE_URL = 'https://mivgqkiucmqypxqrclrg.supabase.co';
 const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im1pdmdxa2l1Y21xeXB4cXJjbHJnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjQxNzY0MzksImV4cCI6MjA3OTc1MjQzOX0.INrWiRr9ApW_CwYlCra9PVDfwt2aT7N7XSHwbsU9G1M';
@@ -12,7 +12,7 @@ const Data = {
     clients: [],
     notifications: [],
     tags: [],
-    dashboardCache: null, // Cache simples para evitar requests excessivos
+    dashboardCache: null,
 
     async init() {
         console.log('Iniciando conexão com Supabase...');
@@ -53,6 +53,9 @@ const Data = {
                 };
             });
 
+            // Inicia escuta em tempo real
+            this.subscribeToRealtime();
+
             console.log('Dados carregados:', this.clients.length, 'clientes');
             return true;
 
@@ -60,6 +63,98 @@ const Data = {
             console.error('Erro ao carregar dados:', error);
             alert('Erro ao conectar com o banco de dados. Verifique o console.');
             return false;
+        }
+    },
+
+    // --- REALTIME SUBSCRIPTION ---
+    subscribeToRealtime() {
+        console.log('Conectando ao Realtime...');
+        
+        // 1. Escuta alterações na tabela de CLIENTES (Update genérico)
+        supabase.channel('public:clients')
+            .on('postgres_changes', { event: '*', schema: 'public', table: 'clients' }, payload => {
+                this.handleRealtimeUpdate(payload);
+            })
+            .subscribe((status) => {
+                if (status === 'SUBSCRIBED') console.log('Escutando tabela clients...');
+            });
+
+        // 2. Escuta inserções no HISTÓRICO DE ESTÁGIOS (Para garantir atualização do Kanban)
+        // Isso resolve o problema onde o to_stage_id existe no histórico mas o cliente não atualizou visualmente
+        supabase.channel('public:client_stage_history')
+            .on('postgres_changes', { event: 'INSERT', schema: 'public', table: 'client_stage_history' }, payload => {
+                this.handleStageHistoryUpdate(payload);
+            })
+            .subscribe((status) => {
+                if (status === 'SUBSCRIBED') console.log('Escutando tabela client_stage_history...');
+            });
+    },
+
+    // Handler para tabela clients
+    handleRealtimeUpdate(payload) {
+        console.log('Alteração em Clients:', payload);
+        const { eventType, new: newRecord, old: oldRecord } = payload;
+
+        if (eventType === 'INSERT') {
+            const newClient = { ...newRecord, messages: [], tags: [] };
+            this.clients.unshift(newClient);
+            Utils.showToast(`Novo cliente: ${newRecord.name}`, 'success');
+        } 
+        else if (eventType === 'UPDATE') {
+            const index = this.clients.findIndex(c => c.id === newRecord.id);
+            if (index !== -1) {
+                const existingMsgs = this.clients[index].messages;
+                const existingTags = this.clients[index].tags;
+                
+                this.clients[index] = { 
+                    ...newRecord, 
+                    messages: existingMsgs, 
+                    tags: existingTags 
+                };
+                
+                // Feedback visual de mudança de estágio
+                if (oldRecord && oldRecord.stage_id !== newRecord.stage_id) {
+                     // Lógica opcional de toast, mas a atualização visual é feita pelo render
+                }
+            }
+        } 
+        else if (eventType === 'DELETE') {
+            this.clients = this.clients.filter(c => c.id !== oldRecord.id);
+        }
+
+        this.refreshUI();
+    },
+
+    // Handler específico para client_stage_history (Correção do Bug to_stage_id)
+    handleStageHistoryUpdate(payload) {
+        console.log('Novo histórico de estágio:', payload);
+        const { new: historyRecord } = payload;
+        
+        if (historyRecord && historyRecord.client_id && historyRecord.to_stage_id) {
+            const index = this.clients.findIndex(c => c.id === historyRecord.client_id);
+            
+            if (index !== -1) {
+                // Força a atualização do estágio no modelo local
+                const oldStageId = this.clients[index].stage_id;
+                this.clients[index].stage_id = historyRecord.to_stage_id;
+                this.clients[index].updated_at = historyRecord.created_at || new Date().toISOString();
+                
+                if (oldStageId !== historyRecord.to_stage_id) {
+                    console.log(`Atualizando cliente ${historyRecord.client_id} para estágio ${historyRecord.to_stage_id} via histórico.`);
+                    this.refreshUI();
+                    
+                    const stageName = this.stages.find(s => s.id === historyRecord.to_stage_id)?.name;
+                    Utils.showToast(`Cliente movido para ${stageName || 'novo estágio'}`, 'info');
+                }
+            }
+        }
+    },
+
+    refreshUI() {
+        if (typeof Kanban !== 'undefined' && App.currentView === 'kanban') {
+            Kanban.render();
+        } else if (typeof Clients !== 'undefined' && App.currentView === 'clients') {
+            Clients.render();
         }
     },
 
@@ -95,6 +190,7 @@ const Data = {
             console.error("Erro ao salvar:", err);
             Utils.showToast("Erro ao salvar alterações", "error");
             this.clients[index] = oldData;
+            this.refreshUI();
         }
     },
 
@@ -116,16 +212,14 @@ const Data = {
                     client_id: data.id,
                     content: lastMsg,
                     type: 'text',
-                    direction: 'inbound',
+                    from_me: false,
                     status: 'received'
                 };
                 const { data: msgData } = await supabase.from('messages').insert(msgPayload).select();
                 if(msgData) msgs.push(msgData[0]);
             }
-
-            const newLocalClient = { ...data, messages: msgs, tags: [] };
-            this.clients.unshift(newLocalClient);
-            return newLocalClient;
+            
+            return { ...data, messages: msgs, tags: [] };
         } catch (err) {
             console.error("Erro ao criar lead:", err);
             Utils.showToast("Erro ao criar lead", "error");
@@ -140,7 +234,7 @@ const Data = {
                 .insert({
                     client_id: clientId,
                     content: text,
-                    direction: direction,
+                    from_me: true,
                     type: 'text',
                     status: 'sent'
                 })
@@ -149,114 +243,70 @@ const Data = {
             if (error) throw error;
             const client = this.getClientById(clientId);
             if(client) {
-                const uiMsg = { ...data, text: data.content };
-                client.messages.push(uiMsg);
+                client.messages.push(data);
             }
             return data;
         } catch (err) { console.error(err); }
     },
 
-    // --- NOVA FUNÇÃO DE MÉTRICAS VIA RPC ---
+    // --- MÉTODOS DE DOCUMENTOS E ANOTAÇÕES (Mantidos iguais) ---
     async getDashboardMetrics() {
         try {
-            // Chama a função RPC criada no Supabase
             const { data, error } = await supabase.rpc('get_dashboard_metrics');
-            
             if (error) throw error;
             this.dashboardCache = data;
             return data;
         } catch (error) {
-            console.error('Erro ao buscar métricas do dashboard:', error);
-            Utils.showToast('Erro ao carregar métricas atualizadas.', 'error');
+            console.error('Erro dashboard:', error);
             return null;
         }
     },
 
-    // --- MÉTODOS DE DOCUMENTOS ---
     async getDocuments(clientId) {
         const { data, error } = await supabase
             .from('client_documents')
             .select('*')
             .eq('client_id', clientId)
             .order('created_at', { ascending: false });
-        
-        if (error) {
-            console.error(error);
-            return [];
-        }
-        return data;
+        return error ? [] : data;
     },
 
     async uploadDocument(clientId, file) {
         try {
-            if (!clientId) throw new Error("ID do cliente inválido para upload.");
-
-            const sanitizedName = file.name
-                .normalize('NFD')
-                .replace(/[\u0300-\u036f]/g, "") 
-                .replace(/[^a-zA-Z0-9.-]/g, "_"); 
-
+            if (!clientId) throw new Error("ID inválido");
+            const sanitizedName = file.name.normalize('NFD').replace(/[\u0300-\u036f]/g, "").replace(/[^a-zA-Z0-9.-]/g, "_"); 
             const fileName = `${clientId}/${Date.now()}_${sanitizedName}`;
             
-            const { data: uploadData, error: uploadError } = await supabase
-                .storage
-                .from('documents') 
-                .upload(fileName, file, { cacheControl: '3600', upsert: false });
-
+            const { error: uploadError } = await supabase.storage.from('documents').upload(fileName, file, { cacheControl: '3600', upsert: false });
             if (uploadError) throw uploadError;
 
-            const { data: { publicUrl } } = supabase
-                .storage
-                .from('documents')
-                .getPublicUrl(fileName);
-
-            const { data: dbData, error: dbError } = await supabase
-                .from('client_documents')
-                .insert({
-                    client_id: clientId,
-                    name: file.name,
-                    file_type: file.type,
-                    file_size_bytes: file.size,
-                    file_url: publicUrl,
-                    uploaded_by: null
-                })
-                .select()
-                .single();
+            const { data: { publicUrl } } = supabase.storage.from('documents').getPublicUrl(fileName);
+            const { data: dbData, error: dbError } = await supabase.from('client_documents').insert({
+                client_id: clientId, name: file.name, file_type: file.type, file_size_bytes: file.size, file_url: publicUrl, uploaded_by: null
+            }).select().single();
 
             if (dbError) throw dbError;
             return dbData;
-
         } catch (error) {
             console.error('Erro no upload:', error);
-            if (error.message && error.message.includes('row-level security policy')) {
-                Utils.showToast("Erro: Permissões do Bucket não configuradas no Supabase.", "error");
-            } else {
-                throw error;
-            }
+            if (error.message && error.message.includes('row-level security policy')) Utils.showToast("Erro de Permissão Supabase", "error");
+            else throw error;
         }
     },
 
     async deleteDocument(documentId, fileUrl) {
         try {
             const path = fileUrl.split('/documents/')[1];
-            if (path) {
-                const { error: storageError } = await supabase.storage.from('documents').remove([path]);
-                if (storageError) console.warn('Aviso: Erro ao deletar do storage, tentando deletar do banco...', storageError);
-            }
-            const { error: dbError } = await supabase.from('client_documents').delete().eq('id', documentId);
-            if (dbError) throw dbError;
+            if (path) await supabase.storage.from('documents').remove([path]);
+            const { error } = await supabase.from('client_documents').delete().eq('id', documentId);
+            if (error) throw error;
             return true;
-        } catch (error) {
-            console.error('Erro ao deletar documento:', error);
-            throw error;
-        }
+        } catch (error) { console.error(error); throw error; }
     },
 
-    // --- MÉTODOS DE ANOTAÇÕES ---
     async getNotes(clientId) {
         const { data, error } = await supabase.from('client_notes').select('*').eq('client_id', clientId).order('created_at', { ascending: false });
-        if (error) { console.error(error); return []; }
-        return data;
+        return error ? [] : data;
     },
 
     async addNote(clientId, content) {
@@ -264,6 +314,6 @@ const Data = {
             const { data, error } = await supabase.from('client_notes').insert({ client_id: clientId, content: content, user_id: null }).select().single();
             if (error) throw error;
             return data;
-        } catch (error) { console.error('Erro ao salvar nota:', error); throw error; }
+        } catch (error) { console.error(error); throw error; }
     }
 };

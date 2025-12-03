@@ -101,9 +101,13 @@ const Modal = {
         const container = document.getElementById('tab-content');
         
         if (this.activeTab === 'chat') {
+            // Lógica de Renderização do Chat:
+            // 1. Usa from_me para alinhar (True = Agente/Direita, False = Lead/Esquerda)
+            // 2. Removeu o input de envio conforme solicitado
+            
             const msgs = (lead.messages || []).map(m => `
-                <div class="flex ${m.direction === 'outbound' ? 'justify-end' : 'justify-start'}">
-                    <div class="max-w-[85%] p-3 rounded-xl shadow-sm relative text-sm leading-relaxed ${m.direction === 'outbound' ? 'chat-bubble-agent' : 'chat-bubble-lead'}">
+                <div class="flex ${m.from_me ? 'justify-end' : 'justify-start'}">
+                    <div class="max-w-[85%] p-3 rounded-xl shadow-sm relative text-sm leading-relaxed ${m.from_me ? 'chat-bubble-agent' : 'chat-bubble-lead'}">
                         ${m.content || m.text}
                         <div class="text-[10px] text-slate-500 text-right mt-1 opacity-70">${Utils.formatRelativeTime(m.created_at)}</div>
                     </div>
@@ -115,10 +119,7 @@ const Modal = {
                     <div class="flex-1 overflow-y-auto p-6 space-y-4 relative z-10" id="chat-scroll">
                         ${msgs.length ? msgs : '<div class="text-center text-slate-400 text-sm mt-4 bg-white/80 p-2 rounded-lg inline-block mx-auto">Nenhuma mensagem ainda.</div>'}
                     </div>
-                    <div class="p-3 bg-slate-100 flex items-center gap-2 border-t border-slate-200 relative z-10">
-                        <input type="text" id="chat-input" placeholder="Digite..." class="flex-1 border-none rounded-lg py-2.5 px-4 focus:ring-1 focus:ring-gold shadow-sm text-sm outline-none" onkeydown="if(event.key === 'Enter') Modal.sendMessage()">
-                        <button onclick="Modal.sendMessage()" class="p-2.5 bg-gold text-white rounded-full hover-bg-gold shadow-md"><i data-lucide="send" class="w-4 h-4"></i></button>
-                    </div>
+                    <!-- Área de input removida -->
                 </div>`;
             
             const scroll = document.getElementById('chat-scroll');
@@ -220,8 +221,6 @@ const Modal = {
     async handleUpload(files) {
         if (!files.length) return;
         const file = files[0];
-        
-        // Feedback visual imediato
         const btnLabel = document.querySelector('.btn-primary');
         const originalText = btnLabel.innerHTML;
         btnLabel.innerHTML = `<i class="animate-spin w-4 h-4 mr-2 border-2 border-white border-t-transparent rounded-full"></i> Enviando...`;
@@ -229,7 +228,7 @@ const Modal = {
         try {
             await Data.uploadDocument(this.currentLeadId, file);
             Utils.showToast('Upload concluído com sucesso!', 'success');
-            this.loadDocsList(); // Recarrega a lista
+            this.loadDocsList();
         } catch (error) {
             Utils.showToast('Erro ao fazer upload.', 'error');
             console.error(error);
@@ -240,7 +239,6 @@ const Modal = {
 
     async deleteDoc(id, url) {
         if (!confirm('Tem certeza que deseja excluir este documento?')) return;
-        
         try {
             await Data.deleteDocument(id, url);
             Utils.showToast('Documento excluído.', 'success');
@@ -255,7 +253,6 @@ const Modal = {
         const listEl = document.getElementById('notes-list');
         try {
             const notes = await Data.getNotes(this.currentLeadId);
-            
             if (notes.length === 0) {
                 listEl.innerHTML = `
                     <div class="flex flex-col items-center justify-center py-10 text-slate-400">
@@ -288,10 +285,9 @@ const Modal = {
         const input = document.getElementById('note-input');
         const content = input.value.trim();
         if (!content) return;
-
         try {
             await Data.addNote(this.currentLeadId, content);
-            input.value = ''; // Limpa
+            input.value = '';
             Utils.showToast('Anotação salva!', 'success');
             this.loadNotesList();
         } catch (error) {
@@ -299,16 +295,7 @@ const Modal = {
         }
     },
 
-    // --- LÓGICA DE CHAT & EDIT (MANTIDA) ---
-    async sendMessage() {
-        const input = document.getElementById('chat-input');
-        const text = input.value.trim();
-        if (!text) return;
-        input.value = ''; 
-        await Data.addMessage(this.currentLeadId, text, 'outbound');
-        this.renderTabContent(Data.getClientById(this.currentLeadId)); // Re-render só o chat
-    },
-
+    // --- LÓGICA DE EDIÇÃO E NOVO LEAD ---
     async saveEdit(formData) {
         await Data.updateClient(this.currentLeadId, {
             name: formData.get('name'),
@@ -317,7 +304,7 @@ const Modal = {
         });
         Utils.showToast('Lead atualizado!', 'success');
         if(App.currentView === 'kanban') Kanban.render();
-        this.renderDetailModal(); // Atualiza header da modal
+        this.renderDetailModal();
     },
 
     openAddLead() {
@@ -402,7 +389,7 @@ const Modal = {
             if(App.currentView === 'kanban') Kanban.render();
             else Dashboard.render();
         } catch (e) {
-             // Erro já tratado no Data.addClient
+             // Erro tratado
         }
     }
 };
