@@ -3,7 +3,7 @@
 const SUPABASE_URL = 'https://mivgqkiucmqypxqrclrg.supabase.co';
 const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im1pdmdxa2l1Y21xeXB4cXJjbHJnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjQxNzY0MzksImV4cCI6MjA3OTc1MjQzOX0.INrWiRr9ApW_CwYlCra9PVDfwt2aT7N7XSHwbsU9G1M';
 
-const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
 const Data = {
     pipelines: [],
@@ -16,8 +16,8 @@ const Data = {
         try {
             // 1. Carrega Estrutura (Pipelines e Estágios)
             const [pipelinesRes, stagesRes] = await Promise.all([
-                supabase.from('pipelines').select('*').order('id'),
-                supabase.from('pipeline_stages').select('*').order('position')
+                supabaseClient.from('pipelines').select('*').order('id'),
+                supabaseClient.from('pipeline_stages').select('*').order('position')
             ]);
 
             this.pipelines = pipelinesRes.data || [];
@@ -42,7 +42,7 @@ const Data = {
 
     async loadKanbanData() {
         // Carrega clientes para o Kanban
-        const { data, error } = await supabase
+        const { data, error } = await supabaseClient
             .from('clients')
             .select(`
                 id, nome, telefone, resumo, humor, 
@@ -65,7 +65,7 @@ const Data = {
 
     async loadWhatsappData() {
         // Consome a View criada especificamente para o monitoramento
-        const { data, error } = await supabase
+        const { data, error } = await supabaseClient
             .from('view_whatsapp_control')
             .select('*')
             .order('last_msg_time', { ascending: false });
@@ -85,7 +85,7 @@ const Data = {
 
     subscribeToChanges() {
         // 1. Monitora tabela Clients (Para o Kanban)
-        supabase.channel('kanban-changes')
+        supabaseClient.channel('kanban-changes')
             .on(
                 'postgres_changes', 
                 { event: '*', schema: 'public', table: 'clients' }, 
@@ -97,7 +97,7 @@ const Data = {
 
         // 2. Monitora tabela raw_atendimentos_whatsapp (Para recarregar a View de Monitoramento)
         // Como Views não têm realtime direto, monitoramos a tabela base e recarregamos a lista
-        supabase.channel('whatsapp-changes')
+        supabaseClient.channel('whatsapp-changes')
             .on(
                 'postgres_changes',
                 { event: 'INSERT', schema: 'public', table: 'raw_atendimentos_whatsapp' },
